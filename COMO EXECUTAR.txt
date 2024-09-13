@@ -1,0 +1,12 @@
+
+
+O projeto foi feito utilizando a versão do node 
+NODEjs v16.15.1
+no entanto acredito que as versões mais modernas tambem consiga executar o software, 
+pois utilizei versao tradicional do node bem como o modules para exportar os arquivos. 
+
+
+COMO EXECUTAR:
+
+Basta navegar ate a raiz do projeto em seu computador, via cmd, e executar o comando a seguir -> node index.js  
+deixarei tambem um print(PRINT1) da execucao do projeto em meu computador.
