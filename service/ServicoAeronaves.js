@@ -30,6 +30,39 @@ class ServicoAeronaves {
         return true
     }
 
+    tipoAeronave(prefixo) {
+        const aeronave = this.recupera(prefixo)
+        return aeronave.constructor.name
+    }
+
+    #altitudePermitidaAeronavePassageiros() {
+        return { min: 28000, max: 35000 }
+    }
+
+    #altitudePermitidaAeronaveCarga() {
+        return { min: 25000, max: 35000 }
+    }
+
+    #altitudePermitidaAeronaveParticular() {
+        return { min: 25000, max: 27000 }
+    }
+
+    altitudePermitidaPorTipoDeAeronave(tipoAeronave) {
+        switch (tipoAeronave) {
+            case "AeronavePassageiros":
+                return this.#altitudePermitidaAeronavePassageiros()
+            
+            case "AeronaveParticular":
+                return this.#altitudePermitidaAeronaveParticular()
+
+            case "AeronaveCarga": 
+                return this.#altitudePermitidaAeronaveCarga()
+        
+            default:
+                return { min: 25000, max: 35000 };
+        }  
+    }
+
 }
 
 module.exports = ServicoAeronaves

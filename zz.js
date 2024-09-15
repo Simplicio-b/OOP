@@ -83,7 +83,7 @@ function testarSistema() {
         armazenar o mesmo no sistema e marcar a respectiva aerovia/altitude como ocupada nos
         horários indicados. Por fim deve retornar o identificador do plano de voo aprovado.
     */
-    const planoDeVoo0 = new PlanoDeVoo('PL433', 'PIL456', 'AV011', new Date(), '12:00', 30000, [1, 2], false);
+    const planoDeVoo0 = new PlanoDeVoo('PL433', 'PIL456', 'AV011', new Date(), '12:00', 27000, [1, 2], false);
     const planoDeVoo1 = new PlanoDeVoo('PL002', 'PIL433', 'AV001', new Date(), '18:00', 25000, [1, 2], false);
     const planoDeVoo2 = new PlanoDeVoo('PL008', 'PIL000', 'AV012', new Date(), '18:00', 25000, [1, 2], false);
  
@@ -93,39 +93,9 @@ function testarSistema() {
     // console.log(sistema.listarPlanos(), "\n");
 
     // • Listar um plano a partir do número.
-   
-    // console.log(Object.getPrototypeOf(aeronave1))
-    // console.log(Object.getPrototypeOf(aeronave2))
-    // console.log()
     // console.log(sistema.servicoPlanos.recuperar('PL002'), "\n");
-
-
-    // REGRAS DE NEGOCIO 
-
     
-
-    /* 
-        REGRA DE NEGOCIO ALTITUDES
-
-        Como já foi visto no enunciado geral, as aerovias são divididas em altitudes. Por simplicidade
-        iremos assumir que todas as aerovias são divididas em 10 altitudes começando em 25.000 pés
-        até 35.000 pés. 
-
-    	REGRA DE NEGOCIO PARA PLANO DE VOO
-
-        Aeronaves comerciais de passageiro só podem voar acima de 28.000 pés. Aeronaves particulares
-        de pequeno porte só podem voar entre 25.000 pés e 27.000 pés. Aeronaves de carga só podem
-        voar entre a meia noite e as 6:00 da manhã.
-
-        Para que um plano de voo possa ser aprovado as seguintes condições tem de ser satisfeitas:
-        • A habilitação do piloto tem de estar ativa;
-        • A aeronave tem de ter autonomia para voar o trecho (a autonomia tem de ser 10% maior
-        que o tamanho da aerovia);
-        • A altitude escolhida tem de ser compatível com o tipo de aeronave;
-        • Não pode haver restrições de horário para o tipo de aeronave;
-        • Os slots de horário necessários têm de estar livres.
-
-    */
+ 
 }
 
 // Run the test

@@ -52,26 +52,35 @@ class Sistema {
         `)
 
         const aerovia = this.servicoAerovias.recuperaPorId(idAerovia)
-
+        const tipoAeronave = this.servicoAeronaves.tipoAeronave(aeronave.prefixo)
+        const altitudePermitidaDaAeronave = this.servicoAeronaves.altitudePermitidaPorTipoDeAeronave(tipoAeronave)
+        const { min, max } = altitudePermitidaDaAeronave
         console.log(aeronave)
         console.log(aerovia)
-        
+        console.log(tipoAeronave + "\n")
+        console.log(`MIN: ${min}, MAX: ${max}\n`)
         // Logic to approve flight plan (e.g., check for conflicts, availability, etc.)
+       
+        // VALIDA REGRAS DA AERONAVE ALTITUDE
+        if(!this.servicoPlanos.validaPlanoDeVooPorAltitudePermitidaDaAeronave(altitude, altitudePermitidaDaAeronave)) {
+            console.log("PLANO DE VOO IRREGULAR - ALTITUDE INVALIDA")
+            return
+        }
+        console.log("ALTITUDE VALIDA \n")
 
         // VALIDA SE O PILOTO ESTA ATIVO
         if(!this.servicoPilotos.pilotoApto(matriculaPiloto)) {
             console.log("PLANO DE VOO IRREGULAR - PILOTO INAPTO")
             return
         }
-        console.log("PILOTO APTO")
+        console.log("PILOTO APTO \n")
 
         // VALIDANDO A AUTONOMIA DA AERONAVE
-        console.log("\nAUTONOMIA SEGURA: ", this.servicoAeronaves.autonomiaSegura(aeronave.autonomia, aerovia.tamanho))
         if(!this.servicoAeronaves.autonomiaSegura(aeronave.autonomia, aerovia.tamanho)) {
             console.log("PLANO DE VOO IRREGULAR - A AERONAVE NAO POSSUI AUTONOMIA SUFICIENTE")
             return
         }
-        console.log("AUTONOMIA SEGURA")
+        console.log("AUTONOMIA SEGURA \n")
         
         this.servicoPlanos.consista(plano);
     }
