@@ -28,11 +28,9 @@ function testarSistema() {
 
     // Add some pilots
     const piloto1 = new Piloto('PIL123', 'João', true);
-    const piloto2 = new Piloto('PIL456', 'Maria', true);
-    const piloto3 = new Piloto('PIL433', 'José', false);
+    const piloto2 = new Piloto('PIL433', 'José', false);
     sistema.servicoPilotos.adicionarPiloto(piloto1);
     sistema.servicoPilotos.adicionarPiloto(piloto2);
-    sistema.servicoPilotos.adicionarPiloto(piloto3);
 
     // Add some aerovias
     const aerovia1 = new Aerovia('AV001', 'São Paulo', 'Rio de Janeiro', 700);
@@ -83,11 +81,12 @@ function testarSistema() {
         armazenar o mesmo no sistema e marcar a respectiva aerovia/altitude como ocupada nos
         horários indicados. Por fim deve retornar o identificador do plano de voo aprovado.
     */
-    const planoDeVoo0 = new PlanoDeVoo('PL433', 'PIL456', 'AV011', new Date(), '12:00', 27000, [1, 2], false);
-    const planoDeVoo1 = new PlanoDeVoo('PL002', 'PIL433', 'AV001', new Date(), '18:00', 25000, [1, 2], false);
-    const planoDeVoo2 = new PlanoDeVoo('PL008', 'PIL000', 'AV012', new Date(), '18:00', 25000, [1, 2], false);
+    // const planoDeVoo0 = new PlanoDeVoo('PL433', 'PIL456', 'AV011', new Date(), '12:00', 29000, [1, 2], false);
+    // const planoDeVoo1 = new PlanoDeVoo('PL002', 'PIL433', 'AV001', new Date(), '18:00', 25000, [1, 2], false);
+    // const planoDeVoo2 = new PlanoDeVoo('PL008', 'PIL000', 'AV012', new Date(), '18:00', 25000, [1, 2], false);
  
-    sistema.aprovarPlanoDeVoo(planoDeVoo0, aeronave3)
+    const plan = sistema.aprovarPlanoDeVoo(aeronave1, piloto1, aerovia3, 29000)
+    console.log(plan)
     // sistema.aprovarPlanoDeVoo(planoDeVoo1, aeronave2)
     // sistema.aprovarPlanoDeVoo(planoDeVoo2, aeronave3)
     // console.log(sistema.listarPlanos(), "\n");

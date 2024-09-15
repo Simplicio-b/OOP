@@ -5,6 +5,7 @@ class ServicoPlanos {
 
     consista(plano) {
         this.planos.push(plano);
+        return plano;
     }
 
     recuperar(id) {

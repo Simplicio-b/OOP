@@ -1,3 +1,5 @@
+const PlanoDeVoo = require("./domain/PlanoDeVoo");
+
 // Service class for Aeronaves
 const ServicoAeronaves = require("./service/ServicoAeronaves");
 // Service class for Pilotos
@@ -27,38 +29,18 @@ class Sistema {
     }
 
 
-    aprovarPlanoDeVoo(plano, aeronave) {
-        const { 
-            id, 
-            idAerovia, 
-            matriculaPiloto, 
-            altitude, 
-            data, 
-            horario, 
-            slots, 
-            cancelado 
-        } = plano
-
-        console.log(`
-            ============ DADOS DO PLANBO DE VOO ============
-            id: ${id}, 
-            idAerovia: ${idAerovia}, 
-            matriculaPiloto: ${matriculaPiloto}, 
-            altitude: ${altitude}, 
-            data: ${data}, 
-            horario: ${horario}, 
-            slots: ${slots}, 
-            cancelado: ${cancelado} 
-        `)
-
-        const aerovia = this.servicoAerovias.recuperaPorId(idAerovia)
+    aprovarPlanoDeVoo(aeronave, piloto, aerovia, altitude) {
+        // const aerovia = this.servicoAerovias.recuperaPorId(idAerovia)
         const tipoAeronave = this.servicoAeronaves.tipoAeronave(aeronave.prefixo)
         const altitudePermitidaDaAeronave = this.servicoAeronaves.altitudePermitidaPorTipoDeAeronave(tipoAeronave)
         const { min, max } = altitudePermitidaDaAeronave
+        const tempoDeViagem = this.servicoAerovias.tempoDeViagem(1000, 800)
         console.log(aeronave)
         console.log(aerovia)
         console.log(tipoAeronave + "\n")
         console.log(`MIN: ${min}, MAX: ${max}\n`)
+        console.log("TEMPO DE VIAGEM: ", tempoDeViagem , "HRS")
+        console.log("TEMPO DE VIAGEM: ", tempoDeViagem * 60 , "minutos")
         // Logic to approve flight plan (e.g., check for conflicts, availability, etc.)
        
         // VALIDA REGRAS DA AERONAVE ALTITUDE
@@ -69,7 +51,7 @@ class Sistema {
         console.log("ALTITUDE VALIDA \n")
 
         // VALIDA SE O PILOTO ESTA ATIVO
-        if(!this.servicoPilotos.pilotoApto(matriculaPiloto)) {
+        if(!this.servicoPilotos.pilotoApto(piloto.matricula)) {
             console.log("PLANO DE VOO IRREGULAR - PILOTO INAPTO")
             return
         }
@@ -82,7 +64,18 @@ class Sistema {
         }
         console.log("AUTONOMIA SEGURA \n")
         
-        this.servicoPlanos.consista(plano);
+        // const planoDeVoo0 = new PlanoDeVoo('PL433', 'PIL456', 'AV011', new Date(), '12:00', 29000, [1, 2], false);
+
+        return this.servicoPlanos.consista(new PlanoDeVoo(
+            "PL433", 
+            piloto.matricula,
+            aerovia.id,
+            new Date(),
+            "15:00",
+            altitude,
+            [0, 2],
+            false
+        ));
     }
 
     listarPlanos() {
