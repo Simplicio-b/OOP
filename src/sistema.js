@@ -29,7 +29,7 @@ class Sistema {
     }
 
 
-    aprovarPlanoDeVoo(aeronave, piloto, aerovia, altitude) {
+    aprovarPlanoDeVoo(aeronave, piloto, aerovia, altitude, data, hora) {
         // const aerovia = this.servicoAerovias.recuperaPorId(idAerovia)
         const tipoAeronave = this.servicoAeronaves.tipoAeronave(aeronave.prefixo)
         const altitudePermitidaDaAeronave = this.servicoAeronaves.altitudePermitidaPorTipoDeAeronave(tipoAeronave)
@@ -70,8 +70,8 @@ class Sistema {
             "PL433", 
             piloto.matricula,
             aerovia.id,
-            new Date(),
-            "15:00",
+            data,
+            hora,
             altitude,
             [0, 2],
             false
