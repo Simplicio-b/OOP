@@ -3,16 +3,16 @@ const {
     AeronavePassageiros,
     AeronaveCarga,
     AeronaveParticular
-} = require("./domain/Aeronave");
+} = require("./src/domain/Aeronave");
 
 // Class Piloto
-const Piloto = require("./domain/Piloto")
+const Piloto = require("./src/domain/Piloto")
 // Class Aerovia
-const Aerovia = require("./domain/Aerovia");
+const Aerovia = require("./src/domain/Aerovia");
 // Class PlanoDeVoo
-const PlanoDeVoo = require("./domain/PlanoDeVoo");
+const PlanoDeVoo = require("./src/domain/PlanoDeVoo");
 // Class Sistema
-const Sistema = require("./sistema")
+const Sistema = require("./src/sistema")
 
 // Test implementation
 function testarSistema() {
