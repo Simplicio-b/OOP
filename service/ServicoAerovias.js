@@ -7,6 +7,10 @@ class ServicoAerovias {
       return this.aerovias.filter(aerovia => aerovia.origem === origem && aerovia.destino === destino);
   }
 
+  recuperaPorId(idAerovia) {
+      return this.aerovias.find(aerovia => aerovia.id === idAerovia);
+  }
+
   adicionarAerovia(aerovia) {
       this.aerovias.push(aerovia);
   }
