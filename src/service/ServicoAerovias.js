@@ -18,6 +18,14 @@ class ServicoAerovias {
   todas() {
       return this.aerovias;
   }
+
+  /* tempo da viagem em horas 
+    tamanhoAerovia - km
+    velocidadeDeCruzeiro - km/hora
+  */
+  tempoDeViagem(tamanhoAerovia, velocidadeDeCruzeiro) {
+    return tamanhoAerovia / velocidadeDeCruzeiro  
+  }
 }
 
 module.exports = ServicoAerovias;
