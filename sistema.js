@@ -39,10 +39,6 @@ class Sistema {
             cancelado 
         } = plano
 
-        const {
-
-        } = aeronave
-
         console.log(`
             ============ DADOS DO PLANBO DE VOO ============
             id: ${id}, 
@@ -54,15 +50,28 @@ class Sistema {
             slots: ${slots}, 
             cancelado: ${cancelado} 
         `)
+
+        const aerovia = this.servicoAerovias.recuperaPorId(idAerovia)
+
+        console.log(aeronave)
+        console.log(aerovia)
         
         // Logic to approve flight plan (e.g., check for conflicts, availability, etc.)
+
         // VALIDA SE O PILOTO ESTA ATIVO
         if(!this.servicoPilotos.pilotoApto(matriculaPiloto)) {
-            console.log("PLANO DE VOO IRREGULAR  - PILOTO INAPTO")
+            console.log("PLANO DE VOO IRREGULAR - PILOTO INAPTO")
             return
         }
-
         console.log("PILOTO APTO")
+
+        // VALIDANDO A AUTONOMIA DA AERONAVE
+        console.log("\nAUTONOMIA SEGURA: ", this.servicoAeronaves.autonomiaSegura(aeronave.autonomia, aerovia.tamanho))
+        if(!this.servicoAeronaves.autonomiaSegura(aeronave.autonomia, aerovia.tamanho)) {
+            console.log("PLANO DE VOO IRREGULAR - A AERONAVE NAO POSSUI AUTONOMIA SUFICIENTE")
+            return
+        }
+        console.log("AUTONOMIA SEGURA")
         
         this.servicoPlanos.consista(plano);
     }
