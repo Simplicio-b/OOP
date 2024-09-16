@@ -52,6 +52,12 @@ class Sistema {
         }
         console.log("ALTITUDE VALIDA \n")
 
+        if(this.servicoAeronaves.restricoesDeHorarioPorTipoDeAeroNave(tipoAeronave, hora)) {
+            console.log("PLANO DE VOO IRREGULAR - HORIRO INVALIDO")
+            return
+        }
+        console.log("HORARIO VALIDO \n")
+
         // VALIDA SE O PILOTO ESTA ATIVO
         if(!this.servicoPilotos.pilotoApto(piloto.matricula)) {
             console.log("PLANO DE VOO IRREGULAR - PILOTO INAPTO")

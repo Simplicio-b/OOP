@@ -63,6 +63,23 @@ class ServicoAeronaves {
         }  
     }
 
+    #restricoesDeHorarioValidationAeronaveCarga(horario) {
+        const hora =  Number.parseInt(horario.split(":")[0])
+
+        if(hora < 6) {
+            return false
+        } 
+
+        return true
+    }
+
+    restricoesDeHorarioPorTipoDeAeroNave(tipoAeronave, horario) {
+        if(tipoAeronave == "AeronaveCarga") {
+            return this.#restricoesDeHorarioValidationAeronaveCarga(horario)
+        }
+        return false
+    }
+
 }
 
 module.exports = ServicoAeronaves

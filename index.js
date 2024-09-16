@@ -85,8 +85,8 @@ function testarSistema() {
     // const planoDeVoo1 = new PlanoDeVoo('PL002', 'PIL433', 'AV001', new Date(), '18:00', 25000, [1, 2], false);
     // const planoDeVoo2 = new PlanoDeVoo('PL008', 'PIL000', 'AV012', new Date(), '18:00', 25000, [1, 2], false);
  
-    const plan = sistema.aprovarPlanoDeVoo(aeronave1, piloto1, aerovia3, 29000, new Date(), "15:15")
-    console.log(plan)
+    const plan = sistema.aprovarPlanoDeVoo(aeronave2, piloto1, aerovia3, 29000, new Date(), "06:00")
+    console.log("Plan :", plan)
     // sistema.aprovarPlanoDeVoo(planoDeVoo1, aeronave2)
     // sistema.aprovarPlanoDeVoo(planoDeVoo2, aeronave3)
     // console.log(sistema.listarPlanos(), "\n");
