@@ -1,3 +1,5 @@
+const Utils = require("../utils/utils");
+
 class ServicoPlanos {
     constructor() {
         this.planos = [];
@@ -14,6 +16,11 @@ class ServicoPlanos {
 
     todos() {
         return this.planos;
+    }
+
+    criarIdPlanoDeVoo() {
+        const id = Utils.uuid()
+        return `PLV-${id}`
     }
 
     validaPlanoDeVooPorAltitudePermitidaDaAeronave(altitudePlano, altitudeAeroNave = { min: 25000, max: 35000 }) {

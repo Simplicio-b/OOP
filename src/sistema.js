@@ -30,17 +30,15 @@ class Sistema {
 
 
     aprovarPlanoDeVoo(aeronave, piloto, aerovia, altitude, data, hora) {
-        // const aerovia = this.servicoAerovias.recuperaPorId(idAerovia)
         const tipoAeronave = this.servicoAeronaves.tipoAeronave(aeronave.prefixo)
         const altitudePermitidaDaAeronave = this.servicoAeronaves.altitudePermitidaPorTipoDeAeronave(tipoAeronave)
-        const { min, max } = altitudePermitidaDaAeronave
-        const tempoDeViagem = this.servicoAerovias.tempoDeViagem(1000, 800)
-        console.log(aeronave)
-        console.log(aerovia)
-        console.log(tipoAeronave + "\n")
-        console.log(`MIN: ${min}, MAX: ${max}\n`)
-        console.log("TEMPO DE VIAGEM: ", tempoDeViagem , "HRS")
-        console.log("TEMPO DE VIAGEM: ", tempoDeViagem * 60 , "minutos")
+        const tempoDeViagem = this.servicoAerovias.tempoDeViagem(aerovia.tamanho, aeronave.velocidadeCruzeiro)
+        // console.log(aeronave)
+        // console.log(aerovia)
+        // console.log(tipoAeronave + "\n")
+        // console.log(`MIN: ${min}, MAX: ${max}\n`)
+        // console.log("TEMPO DE VIAGEM: ", tempoDeViagem , "HRS")
+        // console.log("TEMPO DE VIAGEM: ", tempoDeViagem * 60 , "minutos")
 
         const slots = this.servicoAerovias.montagemSlot(hora, tempoDeViagem)
         // Logic to approve flight plan (e.g., check for conflicts, availability, etc.)
@@ -75,13 +73,13 @@ class Sistema {
         // const planoDeVoo0 = new PlanoDeVoo('PL433', 'PIL456', 'AV011', new Date(), '12:00', 29000, [1, 2], false);
 
         return this.servicoPlanos.consista(new PlanoDeVoo(
-            "PL433", 
+            this.servicoPlanos.criarIdPlanoDeVoo(), 
             piloto.matricula,
             aerovia.id,
             data,
             hora,
             altitude,
-            [0, 2],
+            slots,
             false
         ));
     }
