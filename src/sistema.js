@@ -41,6 +41,8 @@ class Sistema {
         console.log(`MIN: ${min}, MAX: ${max}\n`)
         console.log("TEMPO DE VIAGEM: ", tempoDeViagem , "HRS")
         console.log("TEMPO DE VIAGEM: ", tempoDeViagem * 60 , "minutos")
+
+        const slots = this.servicoAerovias.montagemSlot(hora, tempoDeViagem)
         // Logic to approve flight plan (e.g., check for conflicts, availability, etc.)
        
         // VALIDA REGRAS DA AERONAVE ALTITUDE
