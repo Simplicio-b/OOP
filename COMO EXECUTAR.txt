@@ -2,11 +2,31 @@
 
 O projeto foi feito utilizando a versão do node 
 NODEjs v16.15.1
-no entanto acredito que as versões mais modernas tambem consiga executar o software, 
+no entanto acredito que as versões mais modernas tambem consiga executar o sistema, 
 pois utilizei versao tradicional do node bem como o modules para exportar os arquivos. 
 
 
 COMO EXECUTAR:
 
 Basta navegar ate a raiz do projeto em seu computador, via cmd, e executar o comando a seguir -> node index.js  
-deixarei tambem um print(PRINT1) da execucao do projeto em meu computador.
+deixarei tambem um print(EV1) da execucao do projeto em meu computador.
+
+
+SOBRE O PROJETO
+
+Deixei um arquivo index na raiz para a facil execucao. 
+
+Criei a seguinte estrutuca
+
+    /SRC/
+            - domain/ classes de dominio
+            - services/ classes de servicos essas com a implementacao da maioria das regras de negocio referente aos dominios
+            - ultis/ classe com metodos staticos apenas para auxiliar os servicos
+        
+        - SOLTAS ficaram as classes que consomem todo o resto do projeto (SISTEMA, OCUPACAOAEROVIA)
+    /index.js - QUE EXECUTA OS TESTES DO PROJETO
+
+
+CRIEI UM GIT TAMBEM.
+
+git -> https://github.com/Simplicio-b/OOP
