@@ -9,10 +9,13 @@ const {
 const Piloto = require("./src/domain/Piloto")
 // Class Aerovia
 const Aerovia = require("./src/domain/Aerovia");
-// Class PlanoDeVoo
-const PlanoDeVoo = require("./src/domain/PlanoDeVoo");
+
 // Class Sistema
 const Sistema = require("./src/sistema")
+
+// OcupacaoAeroVia
+
+const OcupacaoAerovia = require("./src/ocupacaoAerovia")
 
 // Test implementation
 function testarSistema() {
@@ -43,58 +46,39 @@ function testarSistema() {
     sistema.servicoAerovias.adicionarAerovia(aerovia4);
 
 
-    // Create and approve a flight plan
-    // const planoDeVoo = new PlanoDeVoo('PL001', 'PIL123', 'AV001', new Date(), '12:00', 30000, [1, 2], false);
-    // const planoDeVoo1 = new PlanoDeVoo('PL002', 'PIL456', 'AV011', new Date(), '18:00', 25000, [1, 2], false);
-    // sistema.aprovarPlanoDeVoo(planoDeVoo);
-    // sistema.aprovarPlanoDeVoo(planoDeVoo1);
 
-    // List aircraft, pilots, and flight plans
-    // console.log("SERVICO AERONAVES\n")
-    // console.log(sistema.listarAeronaves());
-    // console.log("\nSERVICO PILOTOS\n")
-    // console.log(sistema.servicoPilotos.todos());
-    // console.log(sistema.servicoPilotos.recupera('PIL123'))
-    // console.log("\nSERVICO PLANOS DE VOO\n")
+    // console.log("\n\n==========================SERVICO AEROVIAS =======================\n")
+
+    // console.log(sistema.listarAltitudesLivres("AV001", "15/06/2024"))
  
-    // console.log(sistema.servicoPlanos.recuperar("PL002"));
+    // const plan = sistema.aprovarPlanoDeVoo(aeronave1, piloto1, aerovia4, 29000, "15/09/2024", "15:00")
+    // console.log("Plan :", plan)
 
-    console.log("\n\n==========================SERVICO AEROVIAS =======================\n")
-    // console.log(sistema.servicoAerovias.todas())
+    // console.log(sistema.listarAltitudesLivres("AV001", "15/06/2024"))
 
-    /* • Listar as aerovias existentes entre dois aeroportos.
-        o Deve apresentar na tela a lista de todas as aerovias que partem do aeroporto A para o
-        aeroporto B.
-    */
-    // console.log(sistema.servicoAerovias.recupera("São Paulo", "Recife"), "\n")
-    /* • Listar as altitudes livres em uma determinada aerovia em um determinado horário.
-        o Deve apresentar na tela a lista de altitudes livres em uma determinada aerovia em um
-        determinado horário.
-    */
-    // console.log(sistema.listarAltitudesLivres("São Paulo", "Recife"), "\n")
-    /* 
-        Submeter um plano de voo para aprovação (retorna o número do plano aprovado).
-        o Deve permitir que o piloto submeta um plano de voo completo. O sistema analisa se todos
-        os dados são consistentes, se a aerovia/altitude estão livres nos horários solicitados e todas
-        as restrições que se aplicam a aeronave foram respeitadas (ver seção: detalhamento das
-        entidades). Em caso positivo deve atribuir um identificador numérico para o plano de voo,
-        armazenar o mesmo no sistema e marcar a respectiva aerovia/altitude como ocupada nos
-        horários indicados. Por fim deve retornar o identificador do plano de voo aprovado.
-    */
-    // const planoDeVoo0 = new PlanoDeVoo('PL433', 'PIL456', 'AV011', new Date(), '12:00', 29000, [1, 2], false);
-    // const planoDeVoo1 = new PlanoDeVoo('PL002', 'PIL433', 'AV001', new Date(), '18:00', 25000, [1, 2], false);
-    // const planoDeVoo2 = new PlanoDeVoo('PL008', 'PIL000', 'AV012', new Date(), '18:00', 25000, [1, 2], false);
- 
-    const plan = sistema.aprovarPlanoDeVoo(aeronave1, piloto1, aerovia4, 29000, new Date(), "15:00")
-    console.log("Plan :", plan)
-    // sistema.aprovarPlanoDeVoo(planoDeVoo1, aeronave2)
-    // sistema.aprovarPlanoDeVoo(planoDeVoo2, aeronave3)
-    // console.log(sistema.listarPlanos(), "\n");
 
-    // • Listar um plano a partir do número.
-    // console.log(sistema.servicoPlanos.recuperar('PL002'), "\n");
+
+    console.log("\n\n==========================SERVICO OCUPACAO AEROVIA =======================\n")
+    const oa = new OcupacaoAerovia();
+
+    // console.log(oa.altitudesLivres("0", "15/09/2024", "10:00"))
+
+
+    oa.ocuparAerovia("0", "15/09/2024", 26000, [1, 2])
+    oa.ocuparAerovia("0", "15/09/2024", 30000, [0, 1])
+    oa.ocuparAerovia("0", "15/09/2024", 28000, [3, 4])
+    oa.ocuparAerovia("0", "15/09/2024", 28000, [7, 8])
+    oa.ocuparAerovia("0", "15/09/2024", 30000, [5, 8])
+    oa.ocuparAerovia("0", "15/09/2024", 32000, [9, 10])
+    oa.ocuparAerovia("0", "15/09/2024", 34000, [11, 12])
+    // this.ocupacaoAerovia.ocuparAerovia(aerovia.id, data, altitude, slots)
+
+    // console.log(oa.altitudesLivres("0", "15/09/2024", "03:00"))
+    // console.log(oa.altitudesLivres("0", "15/09/2024", "08:00"))
+
+    console.log(oa.isOcupado("0", "15/09/2024", 30000, [1, 2]))
+    console.log(oa.isOcupado("0", "15/09/2024", 30000, [15, 18]))
     
- 
 }
 
 // Run the test

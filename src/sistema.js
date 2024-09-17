@@ -28,21 +28,20 @@ class Sistema {
         return this.ocupacaoAerovia.altitudesLivres(idAerovia, data);
     }
 
-
     aprovarPlanoDeVoo(aeronave, piloto, aerovia, altitude, data, hora) {
         const tipoAeronave = this.servicoAeronaves.tipoAeronave(aeronave.prefixo)
         const altitudePermitidaDaAeronave = this.servicoAeronaves.altitudePermitidaPorTipoDeAeronave(tipoAeronave)
         const tempoDeViagem = this.servicoAerovias.tempoDeViagem(aerovia.tamanho, aeronave.velocidadeCruzeiro)
-        // console.log(aeronave)
-        // console.log(aerovia)
-        // console.log(tipoAeronave + "\n")
-        // console.log(`MIN: ${min}, MAX: ${max}\n`)
-        // console.log("TEMPO DE VIAGEM: ", tempoDeViagem , "HRS")
-        // console.log("TEMPO DE VIAGEM: ", tempoDeViagem * 60 , "minutos")
 
         const slots = this.servicoAerovias.montagemSlot(hora, tempoDeViagem)
         // Logic to approve flight plan (e.g., check for conflicts, availability, etc.)
        
+        if(this.ocupacaoAerovia.isOcupado(aerovia.id, data, altitude, slots)) {
+            console.log("PLANO DE VOO IRREGULAR - AEROVIA OCUPADA")
+            return
+        }
+        console.log("AEROVIA DESOCUPADA \n")
+
         // VALIDA REGRAS DA AERONAVE ALTITUDE
         if(!this.servicoPlanos.validaPlanoDeVooPorAltitudePermitidaDaAeronave(altitude, altitudePermitidaDaAeronave)) {
             console.log("PLANO DE VOO IRREGULAR - ALTITUDE INVALIDA")
@@ -69,8 +68,8 @@ class Sistema {
             return
         }
         console.log("AUTONOMIA SEGURA \n")
-        
-        // const planoDeVoo0 = new PlanoDeVoo('PL433', 'PIL456', 'AV011', new Date(), '12:00', 29000, [1, 2], false);
+
+        this.ocupacaoAerovia.ocuparAerovia(aerovia.id, data, altitude, slots)
 
         return this.servicoPlanos.consista(new PlanoDeVoo(
             this.servicoPlanos.criarIdPlanoDeVoo(), 
