@@ -24,50 +24,52 @@ class Sistema {
         return this.servicoAeronaves.todas();
     }
 
-    listarAltitudesLivres(idAerovia, data) {
-        return this.ocupacaoAerovia.altitudesLivres(idAerovia, data);
+    listarAltitudesLivres(idAerovia, data, horario) {
+        return this.ocupacaoAerovia.altitudesLivres(idAerovia, data, horario);
     }
 
     aprovarPlanoDeVoo(aeronave, piloto, aerovia, altitude, data, hora) {
         const tipoAeronave = this.servicoAeronaves.tipoAeronave(aeronave.prefixo)
         const altitudePermitidaDaAeronave = this.servicoAeronaves.altitudePermitidaPorTipoDeAeronave(tipoAeronave)
         const tempoDeViagem = this.servicoAerovias.tempoDeViagem(aerovia.tamanho, aeronave.velocidadeCruzeiro)
-
         const slots = this.servicoAerovias.montagemSlot(hora, tempoDeViagem)
-        // Logic to approve flight plan (e.g., check for conflicts, availability, etc.)
-       
-        if(this.ocupacaoAerovia.isOcupado(aerovia.id, data, altitude, slots)) {
-            console.log("PLANO DE VOO IRREGULAR - AEROVIA OCUPADA")
+ 
+
+        // VALIDA REGRAS DE HORARIO
+        if(this.servicoAeronaves.restricoesDeHorarioPorTipoDeAeroNave(tipoAeronave, hora)) {
+            console.log("PLANO DE VOO IRREGULAR - HORARIO INVALIDO")
             return
         }
-        console.log("AEROVIA DESOCUPADA \n")
+        // console.log("HORARIO VALIDO \n")
 
         // VALIDA REGRAS DA AERONAVE ALTITUDE
         if(!this.servicoPlanos.validaPlanoDeVooPorAltitudePermitidaDaAeronave(altitude, altitudePermitidaDaAeronave)) {
             console.log("PLANO DE VOO IRREGULAR - ALTITUDE INVALIDA")
             return
         }
-        console.log("ALTITUDE VALIDA \n")
+        // console.log("ALTITUDE VALIDA \n")
 
-        if(this.servicoAeronaves.restricoesDeHorarioPorTipoDeAeroNave(tipoAeronave, hora)) {
-            console.log("PLANO DE VOO IRREGULAR - HORIRO INVALIDO")
-            return
-        }
-        console.log("HORARIO VALIDO \n")
 
         // VALIDA SE O PILOTO ESTA ATIVO
         if(!this.servicoPilotos.pilotoApto(piloto.matricula)) {
             console.log("PLANO DE VOO IRREGULAR - PILOTO INAPTO")
             return
         }
-        console.log("PILOTO APTO \n")
+        // console.log("PILOTO APTO \n")
 
         // VALIDANDO A AUTONOMIA DA AERONAVE
         if(!this.servicoAeronaves.autonomiaSegura(aeronave.autonomia, aerovia.tamanho)) {
             console.log("PLANO DE VOO IRREGULAR - A AERONAVE NAO POSSUI AUTONOMIA SUFICIENTE")
             return
         }
-        console.log("AUTONOMIA SEGURA \n")
+        // console.log("AUTONOMIA SEGURA \n")
+        
+        // VALIDANDO OCUPACAO DA AEROVIA
+        if(this.ocupacaoAerovia.isOcupado(aerovia.id, data, altitude, slots)) {
+            console.log("PLANO DE VOO IRREGULAR - AEROVIA OCUPADA")
+            return
+        }
+        // console.log("AEROVIA DISPONIVEL \n")
 
         this.ocupacaoAerovia.ocuparAerovia(aerovia.id, data, altitude, slots)
 
